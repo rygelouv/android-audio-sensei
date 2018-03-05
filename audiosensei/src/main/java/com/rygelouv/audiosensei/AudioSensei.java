@@ -16,9 +16,22 @@ import java.io.IOException;
 /**
  * Created by rygelouv on 2/28/18.
  * <p>
- * AndroidAudioSensei
- * Copyright (c) 2017 Makeba Inc All rights reserved.
- */
+ * AndroidAudioSensei library
+ * <p>
+ * Copyright 2017 Rygelouv. Initial work by Google.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ **/
 
 public class AudioSensei
 {
@@ -28,7 +41,8 @@ public class AudioSensei
     private final int MY_PERMISSIONS_RECORD_AUDIO = 1;
     private MediaRecorder myAudioRecorder;
     private String outputFile;
-    private @PlaybackInfoListener.State int mState;
+    private @PlaybackInfoListener.State
+    int mState;
 
     private static AudioSensei mInstance;
 
@@ -40,7 +54,8 @@ public class AudioSensei
         return mInstance;
     }
 
-    public @PlaybackInfoListener.State int getState()
+    public @PlaybackInfoListener.State
+    int getState()
     {
         return mState;
     }
@@ -63,14 +78,17 @@ public class AudioSensei
         myAudioRecorder = null;
     }
 
-    private void requestAudioPermissions(Activity activity) {
+    private void requestAudioPermissions(Activity activity)
+    {
         if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED)
+        {
 
             //When permission is not granted by user, show them message why this permission is needed.
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                    Manifest.permission.RECORD_AUDIO)) {
+                    Manifest.permission.RECORD_AUDIO))
+            {
                 Log.i(TAG, "Requesting permission");
 
                 //Give user option to still opt-in the permissions
@@ -78,7 +96,8 @@ public class AudioSensei
                         new String[]{Manifest.permission.RECORD_AUDIO},
                         MY_PERMISSIONS_RECORD_AUDIO);
 
-            } else {
+            } else
+            {
                 // Show user dialog to grant permission to record audio
                 ActivityCompat.requestPermissions(activity,
                         new String[]{Manifest.permission.RECORD_AUDIO},
@@ -88,7 +107,8 @@ public class AudioSensei
         //If permission is granted, then go ahead recording audio
         else if (ContextCompat.checkSelfPermission(activity,
                 Manifest.permission.RECORD_AUDIO)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
+        {
 
             //Go ahead with recording audio now
             recordAudio();
@@ -97,13 +117,17 @@ public class AudioSensei
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
-        switch (requestCode) {
-            case MY_PERMISSIONS_RECORD_AUDIO: {
+        switch (requestCode)
+        {
+            case MY_PERMISSIONS_RECORD_AUDIO:
+            {
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
                     // permission was granted, yay!
                     recordAudio();
-                } else {
+                } else
+                {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Log.i(TAG, "Permissions Denied to record audio");
@@ -121,12 +145,15 @@ public class AudioSensei
         myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         myAudioRecorder.setOutputFile(outputFile);
 
-        try {
+        try
+        {
             myAudioRecorder.prepare();
             myAudioRecorder.start();
-        } catch (IllegalStateException ise) {
+        } catch (IllegalStateException ise)
+        {
             // make something ...
-        } catch (IOException ioe) {
+        } catch (IOException ioe)
+        {
             // make something
         }
         Log.i(TAG, "Audion Recording started");
