@@ -18,9 +18,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center"
+    >
 
-    <ScrollView
+    <!--<ScrollView
         android:id="@+id/scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,7 +37,7 @@
             android:textSize="12sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-    </ScrollView>
+    </ScrollView>-->
 
     <SeekBar
         android:id="@+id/seekbar_audio"
@@ -47,14 +49,11 @@
         />
 
     <com.rygelouv.audiosensei.player.AudioSenseiPlayerView
+        android:layout_gravity="center"
         android:id="@+id/player1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.rygelouv.audiosensei.player.AudioSenseiPlayerView
-        android:id="@+id/player2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"

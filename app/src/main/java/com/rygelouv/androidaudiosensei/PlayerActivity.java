@@ -28,7 +28,7 @@ public class PlayerActivity extends AppCompatActivity
     public static final int MEDIA_RES_ID = R.raw.jazz_in_paris;
 
     private AudioSenseiPlayerView audioSenseiPlayerView1;
-    private AudioSenseiPlayerView audioSenseiPlayerView2;
+    //private AudioSenseiPlayerView audioSenseiPlayerView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class PlayerActivity extends AppCompatActivity
         audioSenseiPlayerView1 = findViewById(R.id.player1);
         audioSenseiPlayerView1.setAudioTarget(MEDIA_RES_ID);
 
-        audioSenseiPlayerView2 = findViewById(R.id.player2);
-        audioSenseiPlayerView2.setAudioTarget(R.raw.francisco_tarrega_lagrima);
+        /*audioSenseiPlayerView2 = findViewById(R.id.player2);
+        audioSenseiPlayerView2.setAudioTarget(R.raw.francisco_tarrega_lagrima);*/
     }
 }
