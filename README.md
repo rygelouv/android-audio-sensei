@@ -40,9 +40,9 @@ dependencies {
 }
 ```
 
-# Recording audion
+# Recording audio
 
-You simply need an instance of AudioSensei class and start recording
+You simply need an instance of AudioSensei class to start recording
 
 Using `startRecording()`
 
@@ -52,11 +52,11 @@ AudioSensei.getInstance().startRecording(MainActivity.this);
 
 ## Handling runtime permission
 
-When call startRecording(), AudioSensei check first if the RECORD_AUDIO permission is granted
+When call `startRecording()`, AudioSensei check first if the `RECORD_AUDIO` permission is granted
 if not the permission is requested so you don't have to do it yourself.
 
-To make sure the AudioSensei will start recording afeter the permission is granted, you need to
-override the method onRequestPermissionsResult and tell AudioSensei to do the rest
+To make sure the AudioSensei will start recording after the permission is granted, you need to
+override the method `onRequestPermissionsResult` and tell `AudioSensei` to do the rest
 
 ```java
     @Override
@@ -70,12 +70,12 @@ override the method onRequestPermissionsResult and tell AudioSensei to do the re
 AudioSensei.getInstance().stopRecording();
 ```
 
-# Create player view
+# Create a player view
 
 Most of the time an audio player just follow the same pattern. You have 2 buttons, Play and Pause,
 sometimes the stop button and the view that indicate the progress which mostly a SeekBar. 
 After creating the view most of the next step is to get an instance of MediaPlayer and play/pause/stop
-depending on which button is clicked. Handling the progress is done by using MediaPlayer.getCurrentPosition()
+depending on which button is clicked. Handling the progress is done by using `MediaPlayer.getCurrentPosition()`
 
 Now gess what you don't need to do any of that now. With AudioSensei library, 
 you can just do this:
@@ -94,7 +94,7 @@ a media is being played and will stop the current media in order to play the new
 
 This is library is in development. This what remains :
 -  Fix some bugs
--  Customize the look and feel of the AudioSenseiPlayerView
+-  Customize the look and feel of the `AudioSenseiPlayerView`
 -  Give the ability to provide a custom layout file for audioSenseiPlayerView
 -  Allow to play audio in a background Service to keep playing even when the user leave the app or the current page
 
