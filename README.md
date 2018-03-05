@@ -36,7 +36,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:Android-LoadingButton:1.1.1'
+    compile 'com.github.Rygelouv:Android-Audio-Sensei:v0.0.1-alpha'
 }
 ```
 
