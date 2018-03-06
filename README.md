@@ -44,10 +44,14 @@ dependencies {
 
 You simply need an instance of AudioSensei class to start recording
 
-Using `startRecording()`
+Using `Recorder()`
 
 ```java
-AudioSensei.getInstance().startRecording(MainActivity.this);
+AudioSensei.Recorder()
+        .with(MainActivity.this)
+        .name(UUID.randomUUID().toString())
+        .to(AudioRecordInfo.AudioPath.APP_PUBLIC_MUSIC)
+        .start();
 ```
 
 ## Handling runtime permission

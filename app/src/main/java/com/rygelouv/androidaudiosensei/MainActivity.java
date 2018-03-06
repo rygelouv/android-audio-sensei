@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.rygelouv.audiosensei.AudioRecordInfo;
 import com.rygelouv.audiosensei.AudioSensei;
+
+import java.util.UUID;
 
 /**
  Copyright 2017 Rygelouv.
@@ -46,7 +49,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                AudioSensei.getInstance().startRecording(MainActivity.this);
+                AudioSensei.Recorder()
+                        .with(MainActivity.this)
+                        .name(UUID.randomUUID().toString())
+                        .to(AudioRecordInfo.AudioPath.APP_PUBLIC_MUSIC)
+                        .start();
+
                 record.setEnabled(false);
                 stop.setEnabled(true);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();

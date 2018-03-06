@@ -191,7 +191,6 @@ public final class MediaPlayerHolder implements PlayerAdapter
             if (mPlaybackInfoListener != null)
             {
                 mPlaybackInfoListener.onStateChanged(PlaybackInfoListener.State.PLAYING);
-                AudioSensei.getInstance().setState(PlaybackInfoListener.State.PLAYING);
             }
             startUpdatingCallbackWithPosition();
         }
@@ -223,7 +222,6 @@ public final class MediaPlayerHolder implements PlayerAdapter
             if (mPlaybackInfoListener != null)
             {
                 mPlaybackInfoListener.onStateChanged(PlaybackInfoListener.State.PAUSED);
-                AudioSensei.getInstance().setState(PlaybackInfoListener.State.PAUSED);
             }
             logToUI("playbackPause()");
         }

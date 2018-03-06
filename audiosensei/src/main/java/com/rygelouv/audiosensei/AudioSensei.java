@@ -41,8 +41,8 @@ public class AudioSensei
     private final int MY_PERMISSIONS_RECORD_AUDIO = 1;
     private MediaRecorder myAudioRecorder;
     private String outputFile;
-    private @PlaybackInfoListener.State
-    int mState;
+
+    private AudioRecordInfo mAudioRecordInfo;
 
     private static AudioSensei mInstance;
 
@@ -54,21 +54,12 @@ public class AudioSensei
         return mInstance;
     }
 
-    public @PlaybackInfoListener.State
-    int getState()
+    private void startRecording(AudioRecordInfo audioRecordInfo)
     {
-        return mState;
-    }
-
-    public void setState(@PlaybackInfoListener.State int mState)
-    {
-        this.mState = mState;
-    }
-
-    public void startRecording(Activity activity)
-    {
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
-        requestAudioPermissions(activity);
+        // outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+        mAudioRecordInfo = audioRecordInfo;
+        outputFile = mAudioRecordInfo.getProprerPath();
+        requestAudioPermissions(mAudioRecordInfo.activity);
     }
 
     public void stopRecording()
@@ -76,6 +67,7 @@ public class AudioSensei
         myAudioRecorder.stop();
         myAudioRecorder.release();
         myAudioRecorder = null;
+        mAudioRecordInfo = null;
     }
 
     private void requestAudioPermissions(Activity activity)
@@ -84,7 +76,6 @@ public class AudioSensei
                 Manifest.permission.RECORD_AUDIO)
                 != PackageManager.PERMISSION_GRANTED)
         {
-
             //When permission is not granted by user, show them message why this permission is needed.
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
                     Manifest.permission.RECORD_AUDIO))
@@ -109,7 +100,6 @@ public class AudioSensei
                 Manifest.permission.RECORD_AUDIO)
                 == PackageManager.PERMISSION_GRANTED)
         {
-
             //Go ahead with recording audio now
             recordAudio();
         }
@@ -126,8 +116,7 @@ public class AudioSensei
                 {
                     // permission was granted, yay!
                     recordAudio();
-                } else
-                {
+                } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Log.i(TAG, "Permissions Denied to record audio");
@@ -149,11 +138,9 @@ public class AudioSensei
         {
             myAudioRecorder.prepare();
             myAudioRecorder.start();
-        } catch (IllegalStateException ise)
-        {
+        } catch (IllegalStateException ise) {
             // make something ...
-        } catch (IOException ioe)
-        {
+        } catch (IOException ioe) {
             // make something
         }
         Log.i(TAG, "Audion Recording started");
@@ -161,6 +148,51 @@ public class AudioSensei
 
     public String getLastRecordedOutputFile()
     {
+        Log.e(TAG, outputFile);
         return outputFile;
+    }
+
+    public static Recorder Recorder()
+    {
+        return new Recorder();
+    }
+
+    public static class Recorder
+    {
+        private AudioRecordInfo audioRecordInfo;
+
+        public Recorder() {}
+
+        public Recorder with(Activity activity){
+            if (audioRecordInfo == null)
+                audioRecordInfo = new AudioRecordInfo();
+
+            audioRecordInfo.activity = activity;
+
+            return this;
+        }
+
+        public Recorder name(String name){
+            if (audioRecordInfo == null)
+                audioRecordInfo = new AudioRecordInfo();
+
+            audioRecordInfo.name = name;
+
+            return this;
+        }
+
+        public Recorder to(@AudioRecordInfo.AudioPath int audioPath){
+            if (audioRecordInfo == null)
+                audioRecordInfo = new AudioRecordInfo();
+
+            audioRecordInfo.path = audioPath;
+
+            return this;
+        }
+
+        public void start()
+        {
+            getInstance().startRecording(this.audioRecordInfo);
+        }
     }
 }
