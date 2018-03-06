@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AudioSenseiPlayerView">
+        <attr name="custom_layout" format="reference"/>
+        <attr name="is_in_list" format="boolean"/>
+    </declare-styleable>
+</resources>

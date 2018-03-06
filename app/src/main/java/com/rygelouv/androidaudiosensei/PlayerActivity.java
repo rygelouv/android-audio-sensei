@@ -33,6 +33,7 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Custom AudioSensei player");
         setContentView(R.layout.activity_player);
         initializeUI();
         Log.d(TAG, "onCreate: finished");

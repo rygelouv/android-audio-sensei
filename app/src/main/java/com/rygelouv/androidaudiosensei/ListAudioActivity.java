@@ -41,6 +41,7 @@ public class ListAudioActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_audio);
+        setTitle("Audio List in RecyclerView");
         loadAudio();
         recyclerView = findViewById(R.id.audio_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

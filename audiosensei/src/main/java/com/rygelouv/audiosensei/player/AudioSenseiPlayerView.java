@@ -1,8 +1,10 @@
 package com.rygelouv.audiosensei.player;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.RequiresApi;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.AttributeSet;
@@ -37,11 +39,12 @@ public class AudioSenseiPlayerView extends RelativeLayout
 
     View rootView;
     private SeekBar mSeekbarAudio;
-    private ImageButton mPlayButton;
-    private ImageButton mPauseButton;
+    private View mPlayButton;
+    private View mPauseButton;
     private PlayerAdapter mPlayerAdapter;
     private boolean mUserIsSeeking = false;
     private AudioTarget mTarget;
+    private @LayoutRes int customLayout;
 
     public AudioSenseiPlayerView(Context context)
     {
@@ -52,12 +55,14 @@ public class AudioSenseiPlayerView extends RelativeLayout
     public AudioSenseiPlayerView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+        getAttributes(context, attrs);
         init(context);
     }
 
     public AudioSenseiPlayerView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
+        getAttributes(context, attrs);
         init(context);
     }
 
@@ -65,7 +70,14 @@ public class AudioSenseiPlayerView extends RelativeLayout
     public AudioSenseiPlayerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
     {
         super(context, attrs, defStyleAttr, defStyleRes);
+        getAttributes(context, attrs);
         init(context);
+    }
+
+    private void getAttributes(Context context, AttributeSet attrs)
+    {
+        TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AudioSenseiPlayerView, 0, 0);
+        customLayout = ta.getResourceId(R.styleable.AudioSenseiPlayerView_custom_layout, R.layout.default_audio_senei_player_view);
     }
 
     public void setAudioTarget(Uri uri)
@@ -86,7 +98,7 @@ public class AudioSenseiPlayerView extends RelativeLayout
     void init(Context context)
     {
         Log.i(TAG, "Init AudioPlayerSensei");
-        rootView = inflate(context, R.layout.default_audio_senei_player_view, this);
+        rootView = inflate(context, customLayout, this);
         mPlayButton = findViewById(R.id.button_play);
         mPauseButton = findViewById(R.id.button_pause);
         mSeekbarAudio = findViewById(R.id.seekbar_audio);
@@ -171,7 +183,6 @@ public class AudioSenseiPlayerView extends RelativeLayout
 
     public class PlaybackListener extends PlaybackInfoListener
     {
-
         @Override
         public void onDurationChanged(int duration) {
             mSeekbarAudio.setMax(duration);

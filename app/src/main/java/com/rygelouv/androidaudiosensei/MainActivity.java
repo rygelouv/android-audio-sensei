@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        setContentView(R.layout.activity_main);
+        setTitle("Audio Recording");
         play = findViewById(R.id.play);
         stop = findViewById(R.id.stop);
         record = findViewById(R.id.record);
