@@ -90,6 +90,27 @@ you can just do this:
 Even when you put this as item for a Recyclerview, nothing changes. AudioSensei knows if
 a media is being played and will stop the current media in order to play the new one.
 
+## Add custom layout
+
+If you want to add you owm custom design (i encourage you to do so), you just need to provide your 
+layout file via the attribute `app:custom_layout="@layout/custom_player"`
+
+```xml
+<com.rygelouv.audiosensei.player.AudioSenseiPlayerView
+        android:id="@+id/audio_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:custom_layout="@layout/custom_player"
+        />
+````
+
+#### To make this work properly you need to provide same id for player views:
+
+- `button_play` : For play button
+- `button_pause`: For pause button
+- `seekbar_audio`: For SeekBar that shows audio progress
+
+
 # TODO
 
 This is library is in development. This what remains :
