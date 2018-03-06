@@ -19,7 +19,9 @@ a bit problematic
 
 Audio Sensei take care of all of this for you and provide a very simple way to record and play audio even in a Recyclerview
 
-<img src="https://github.com/Rygelouv/Android-Audio-Sensei/blob/master/device-2018-03-05-200415.png" width="200"> <img src="https://github.com/Rygelouv/Android-Audio-Sensei/blob/master/device-2018-03-05-200707.png" width="200"> <img src="https://github.com/Rygelouv/Android-Audio-Sensei/blob/master/device-2018-03-05-200816.png" width="200">
+<img src="https://github.com/Rygelouv/Android-Audio-Sensei/blob/master/device-2018-03-05-200415.png" width="200"> 
+<img src="https://github.com/Rygelouv/android-audio-sensei/blob/master/device-2018-03-06-112730.png" width="200"> 
+<img src="https://github.com/Rygelouv/android-audio-sensei/blob/master/device-2018-03-06-112821.png" width="200">
 
 
 **AudioSensei library does not use any other library to do its job**
