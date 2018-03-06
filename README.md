@@ -36,7 +36,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.2-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.3-beta'
 }
 ```
 
