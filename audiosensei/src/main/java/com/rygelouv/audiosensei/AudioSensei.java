@@ -4,14 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.rygelouv.audiosensei.player.PlaybackInfoListener;
-
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by rygelouv on 2/28/18.
@@ -56,9 +55,8 @@ public class AudioSensei
 
     private void startRecording(AudioRecordInfo audioRecordInfo)
     {
-        // outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
         mAudioRecordInfo = audioRecordInfo;
-        outputFile = mAudioRecordInfo.getProprerPath();
+        outputFile = mAudioRecordInfo.getProperPath();
         requestAudioPermissions(mAudioRecordInfo.activity);
     }
 
@@ -81,12 +79,10 @@ public class AudioSensei
                     Manifest.permission.RECORD_AUDIO))
             {
                 Log.i(TAG, "Requesting permission");
-
                 //Give user option to still opt-in the permissions
                 ActivityCompat.requestPermissions(activity,
                         new String[]{Manifest.permission.RECORD_AUDIO},
                         MY_PERMISSIONS_RECORD_AUDIO);
-
             } else
             {
                 // Show user dialog to grant permission to record audio
@@ -114,11 +110,10 @@ public class AudioSensei
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
-                    // permission was granted, yay!
+                    // permission was granted!
                     recordAudio();
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // permission denied, boo! Disable the functionality that depends on this permission.
                     Log.i(TAG, "Permissions Denied to record audio");
                 }
                 return;
@@ -134,14 +129,13 @@ public class AudioSensei
         myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         myAudioRecorder.setOutputFile(outputFile);
 
-        try
-        {
+        try {
             myAudioRecorder.prepare();
             myAudioRecorder.start();
         } catch (IllegalStateException ise) {
-            // make something ...
+            ise.printStackTrace();
         } catch (IOException ioe) {
-            // make something
+            ioe.printStackTrace();
         }
         Log.i(TAG, "Audion Recording started");
     }
@@ -161,37 +155,34 @@ public class AudioSensei
     {
         private AudioRecordInfo audioRecordInfo;
 
-        public Recorder() {}
+        public Recorder() {
+            audioRecordInfo = new AudioRecordInfo();
+        }
 
         public Recorder with(Activity activity){
-            if (audioRecordInfo == null)
-                audioRecordInfo = new AudioRecordInfo();
-
             audioRecordInfo.activity = activity;
-
             return this;
         }
 
         public Recorder name(String name){
-            if (audioRecordInfo == null)
-                audioRecordInfo = new AudioRecordInfo();
-
             audioRecordInfo.name = name;
-
             return this;
         }
 
         public Recorder to(@AudioRecordInfo.AudioPath int audioPath){
-            if (audioRecordInfo == null)
-                audioRecordInfo = new AudioRecordInfo();
-
             audioRecordInfo.path = audioPath;
-
             return this;
         }
 
         public void start()
         {
+            if (audioRecordInfo.activity == null)
+                throw new RuntimeException("Acivity not provided. Set activity using with() method");
+            if (TextUtils.isEmpty(audioRecordInfo.name))
+                audioRecordInfo.name = UUID.randomUUID().toString();
+            if (audioRecordInfo.path == 0)
+                audioRecordInfo.path = AudioRecordInfo.AudioPath.PHONE_PUBLIC_MUSIC;
+
             getInstance().startRecording(this.audioRecordInfo);
         }
     }

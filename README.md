@@ -36,7 +36,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.3-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.4-beta'
 }
 ```
 
@@ -49,7 +49,7 @@ Using `Recorder()`
 ```java
 AudioSensei.Recorder()
         .with(MainActivity.this)
-        .name(UUID.randomUUID().toString())
+        .name("file_name")
         .to(AudioRecordInfo.AudioPath.APP_PUBLIC_MUSIC)
         .start();
 ```
@@ -117,7 +117,8 @@ layout file via the attribute `app:custom_layout="@layout/custom_player"`
 
 # TODO
 
-This is library is in development. This what remains :
+This is library is still in active development. So you may encounter some bugs please create issues.
+This what remains :
 -  Fix some bugs
 -  Customize the look and feel of the `AudioSenseiPlayerView`
 -  Give the ability to provide a custom layout file for audioSenseiPlayerView

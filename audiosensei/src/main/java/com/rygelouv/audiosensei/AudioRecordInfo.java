@@ -47,7 +47,7 @@ public class AudioRecordInfo
         int APP_PRIVATE_AUDIO = 3;
     }
 
-    public String getProprerPath()
+    public String getProperPath()
     {
         switch (path)
         {
@@ -56,7 +56,6 @@ public class AudioRecordInfo
             case AudioPath.APP_PUBLIC_MUSIC:
                 return activity.getExternalFilesDir(DIRECTORY_MUSIC).getAbsolutePath() + File.separator + name + extension;
             case AudioPath.APP_PRIVATE_AUDIO:
-                Log.e("GAG", "APP_PRIVATE_AUDIO");
                 Log.e("GAG", activity.getFilesDir().getAbsolutePath() + File.separator + "audios" + File.separator + name + extension);
                 return activity.getFilesDir().getAbsolutePath() + File.separator + "audios" + File.separator + name + extension;
             default:
