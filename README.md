@@ -74,7 +74,7 @@ override the method `onRequestPermissionsResult` and tell `AudioSensei` to do th
 AudioSensei.getInstance().stopRecording();
 ```
 
-## Get the last recording file
+## Get the last recorded file
 
 To get the last file you just recorded just after the record stop
 
