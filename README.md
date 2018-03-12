@@ -36,7 +36,7 @@ and:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.4-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.5-beta'
 }
 ```
 
@@ -74,6 +74,15 @@ override the method `onRequestPermissionsResult` and tell `AudioSensei` to do th
 AudioSensei.getInstance().stopRecording();
 ```
 
+## Get the last recording file
+
+To get the last file you just recorded just after the record stop
+
+```java
+AudioSensei.getInstance().getLastRecordedOutputFile()
+```
+
+
 # Create a player view
 
 Most of the time an audio player just follow the same pattern. You have 2 buttons, Play and Pause,
@@ -93,6 +102,25 @@ you can just do this:
 
 Even when you put this as item for a Recyclerview, nothing changes. AudioSensei knows if
 a media is being played and will stop the current media in order to play the new one.
+
+## Provide an Audio target
+
+AudioSensei library considers any sound to play as a target be it remote sound (on the internet) 
+or local sound file (on the phone). To set a target you just need to call one of the implementation
+of the method `setAudioTarget`
+
+```java
+setAudioTarget(String url) // If you want to play remote file in streaming mode
+```
+```java
+setAudioTarget(int resource) // If you want to play resource in your android project or APK
+```
+```java
+setAudioTarget(Uri uri) // If you want to play a local file on the user disk storage
+```
+
+You just set a target and you're done!
+
 
 ## Add custom layout
 
@@ -114,15 +142,45 @@ layout file via the attribute `app:custom_layout="@layout/custom_player"`
 - `button_pause`: For pause button
 - `seekbar_audio`: For SeekBar that shows audio progress
 
+## Register click listeners for the view inside your custom layout
+
+If you added a custom layout as i just shown above, perhaps you gonna need to perform clicks on views inside
+that custom layout of yours. So to do that, you need to register click listener for your views in AudioSenSeiPlayerView
+by specifying the view that you want to handle the click and the callback using `OnPlayerViewClickListener`like this:
+
+```java
+    audioSenseiPlayerView1.registerViewClickListener(R.id.stop, new OnPlayerViewClickListener()
+            {
+                @Override
+                public void onPlayerViewClick(View view)
+                {
+                    Log.i(TAG, "onPlayer view Clicked");
+                    audioSenseiPlayerView1.stop();
+                }
+            });
+```
+Here, we registered a click for a stop custom actions that we added in the custom layout
+as the stop button is not provided by default in `AudioSenseiPlayerView`
+
+After registering the view and the call back, **YOU MUST CALL `commitClickEvents`** otherwise your 
+events won't be triggered.
+ 
+
+```java
+    audioSenseiPlayerView1.commitClickEvents();
+```
+
 
 # TODO
 
 This is library is still in active development. So you may encounter some bugs please create issues.
 This what remains :
+-  Handle Audio Focus
 -  Fix some bugs
 -  Customize the look and feel of the `AudioSenseiPlayerView`
 -  Give the ability to provide a custom layout file for audioSenseiPlayerView
--  Allow to play audio in a background Service to keep playing even when the user leave the app or the current page
+-  Allow to play audio in a background Service to keep playing 
+even when the user leave the app or the current page and provide controls in a notification
 
 
 # Credits

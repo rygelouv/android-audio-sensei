@@ -177,7 +177,7 @@ public class AudioSensei
         public void start()
         {
             if (audioRecordInfo.activity == null)
-                throw new RuntimeException("Acivity not provided. Set activity using with() method");
+                throw new RuntimeException("Activity not provided. Set activity using with() method");
             if (TextUtils.isEmpty(audioRecordInfo.name))
                 audioRecordInfo.name = UUID.randomUUID().toString();
             if (audioRecordInfo.path == 0)

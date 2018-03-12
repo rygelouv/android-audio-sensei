@@ -3,8 +3,10 @@ package com.rygelouv.androidaudiosensei;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.rygelouv.audiosensei.player.AudioSenseiPlayerView;
+import com.rygelouv.audiosensei.player.OnPlayerViewClickListener;
 
 /**
  Created by rygelouv on 3/1/18.
@@ -28,7 +30,6 @@ public class PlayerActivity extends AppCompatActivity
     public static final int MEDIA_RES_ID = R.raw.jazz_in_paris;
 
     private AudioSenseiPlayerView audioSenseiPlayerView1;
-    //private AudioSenseiPlayerView audioSenseiPlayerView2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,15 @@ public class PlayerActivity extends AppCompatActivity
         audioSenseiPlayerView1 = findViewById(R.id.player1);
         audioSenseiPlayerView1.setAudioTarget(MEDIA_RES_ID);
 
-        /*audioSenseiPlayerView2 = findViewById(R.id.player2);
-        audioSenseiPlayerView2.setAudioTarget(R.raw.francisco_tarrega_lagrima);*/
+        audioSenseiPlayerView1.registerViewClickListener(R.id.stop, new OnPlayerViewClickListener()
+        {
+            @Override
+            public void onPlayerViewClick(View view)
+            {
+                Log.i(TAG, "onPlayer view Clicked");
+                audioSenseiPlayerView1.stop();
+            }
+        });
+        audioSenseiPlayerView1.commitClickEvents();
     }
 }

@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ public class AudioSenseiPlayerView extends RelativeLayout
     private boolean mUserIsSeeking = false;
     private AudioTarget mTarget;
     private @LayoutRes int customLayout;
+    private SparseArray<OnPlayerViewClickListener> playerViewClickListenersArray = new SparseArray<>();
 
     public AudioSenseiPlayerView(Context context)
     {
@@ -94,6 +96,34 @@ public class AudioSenseiPlayerView extends RelativeLayout
     {
         mTarget = new AudioTarget.Builder().withRemoteUrl(url).build();
     }
+
+    /**
+     * Registers click listener for view by id
+     *
+     * @param viewId                     view
+     * @param onPlayerViewClickListener click listener.
+     */
+    public void registerViewClickListener(int viewId, OnPlayerViewClickListener onPlayerViewClickListener) {
+        Log.i(TAG, "view registered");
+        this.playerViewClickListenersArray.append(viewId, onPlayerViewClickListener);
+    }
+
+    public void commitClickEvents()
+    {
+        for (int i = 0; i < playerViewClickListenersArray.size(); i++) {
+            final int key = playerViewClickListenersArray.keyAt(i);
+            final View view = rootView.findViewById(key);
+            if (view != null) {
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        playerViewClickListenersArray.get(key).onPlayerViewClick(view);
+                    }
+                });
+            }
+        }
+    }
+
 
     void init(Context context)
     {
@@ -175,10 +205,19 @@ public class AudioSenseiPlayerView extends RelativeLayout
                 });
     }
 
-    public void reset()
+    private void reset()
     {
         mPlayButton.setVisibility(VISIBLE);
         mPauseButton.setVisibility(GONE);
+    }
+
+    public void stop()
+    {
+        if (mPlayerAdapter != null)
+        {
+            mPlayerAdapter.reset(false);
+            mPlayerAdapter.release();
+        }
     }
 
     public class PlaybackListener extends PlaybackInfoListener
@@ -208,6 +247,11 @@ public class AudioSenseiPlayerView extends RelativeLayout
             onLogUpdated(String.format("onStateChanged(%s)", stateToString));
             if (state == State.RESET)
                 reset();
+            else if (state == State.COMPLETED)
+            {
+                mPlayButton.setVisibility(VISIBLE);
+                mPauseButton.setVisibility(GONE);
+            }
         }
 
         @Override
