@@ -24,7 +24,7 @@ Audio Sensei take care of all of this for you and provide a very simple way to r
 
 **AudioSensei library does not use any other library to do its job**
 
-Add it to your build.gradle with:
+In your project root build.gradle with:
 ```gradle
 allprojects {
     repositories {
@@ -32,7 +32,7 @@ allprojects {
     }
 }
 ```
-and:
+and in the app or module build.gradle:
 
 ```gradle
 dependencies {
