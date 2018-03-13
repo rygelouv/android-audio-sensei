@@ -65,5 +65,6 @@ public class PlayerActivity extends AppCompatActivity
             }
         });
         audioSenseiPlayerView1.commitClickEvents();
+        View playerRootView = audioSenseiPlayerView1.getPlayerRootView();
     }
 }

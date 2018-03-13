@@ -36,7 +36,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.5-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.6-beta'
 }
 ```
 
@@ -169,7 +169,12 @@ events won't be triggered.
 ```java
     audioSenseiPlayerView1.commitClickEvents();
 ```
+## Get the player rootView
 
+If you want to manipulate the views inside the player yourselft you can get it's rootView
+```java
+View playerRootView = audioSenseiPlayerView1.getPlayerRootView();
+```
 
 # TODO
 
