@@ -98,6 +98,14 @@ public class AudioSenseiPlayerView extends RelativeLayout
     }
 
     /**
+     * The rootView may be useful in order to manipulate the views inside the playerview
+     */
+    public View getPlayerRootView()
+    {
+        return rootView;
+    }
+
+    /**
      * Registers click listener for view by id
      *
      * @param viewId                     view
