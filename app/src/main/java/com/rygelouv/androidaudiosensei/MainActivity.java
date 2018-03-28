@@ -31,7 +31,7 @@ import java.util.UUID;
  **/
 public class MainActivity extends AppCompatActivity
 {
-    private Button play, stop, record;
+    private Button play, stop, record, cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity
         play = findViewById(R.id.play);
         stop = findViewById(R.id.stop);
         record = findViewById(R.id.record);
+        cancel = findViewById(R.id.cancel);
         stop.setEnabled(false);
         play.setEnabled(false);
+        cancel.setEnabled(false);
 
         record.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
                 record.setEnabled(false);
                 stop.setEnabled(true);
+                cancel.setEnabled(true);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
             }
         });
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity
                 record.setEnabled(true);
                 stop.setEnabled(false);
                 play.setEnabled(true);
+                cancel.setEnabled(false);
                 Toast.makeText(getApplicationContext(), "Audio Recorder successfully", Toast.LENGTH_LONG).show();
             }
         });
@@ -84,6 +88,18 @@ public class MainActivity extends AppCompatActivity
                 } catch (Exception e) {
                     // make something
                 }
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AudioSensei.getInstance().cancelRecording();
+                record.setEnabled(true);
+                stop.setEnabled(false);
+                play.setEnabled(true);
+                cancel.setEnabled(false);
             }
         });
     }

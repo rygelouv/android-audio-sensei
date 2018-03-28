@@ -11,9 +11,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.rygelouv.audiosensei.R;
 
@@ -42,6 +42,8 @@ public class AudioSenseiPlayerView extends RelativeLayout
     private SeekBar mSeekbarAudio;
     private View mPlayButton;
     private View mPauseButton;
+    private PausableChronometer mCurentDuration;
+    private TextView mDuration;
     private PlayerAdapter mPlayerAdapter;
     private boolean mUserIsSeeking = false;
     private AudioTarget mTarget;
@@ -133,6 +135,9 @@ public class AudioSenseiPlayerView extends RelativeLayout
     }
 
 
+    /**
+     * We only load the media file whe the play button is clicked the first time
+     */
     void init(Context context)
     {
         Log.i(TAG, "Init AudioPlayerSensei");
@@ -140,6 +145,8 @@ public class AudioSenseiPlayerView extends RelativeLayout
         mPlayButton = findViewById(R.id.button_play);
         mPauseButton = findViewById(R.id.button_pause);
         mSeekbarAudio = findViewById(R.id.seekbar_audio);
+        mCurentDuration = findViewById(R.id.current_duration);
+        mDuration = findViewById(R.id.total_duration);
 
         mPauseButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -217,6 +224,7 @@ public class AudioSenseiPlayerView extends RelativeLayout
     {
         mPlayButton.setVisibility(VISIBLE);
         mPauseButton.setVisibility(GONE);
+        mCurentDuration.reset();
     }
 
     public void stop()
@@ -225,6 +233,7 @@ public class AudioSenseiPlayerView extends RelativeLayout
         {
             mPlayerAdapter.reset(false);
             mPlayerAdapter.release();
+            mCurentDuration.reset();
         }
     }
 
@@ -234,6 +243,8 @@ public class AudioSenseiPlayerView extends RelativeLayout
         public void onDurationChanged(int duration) {
             mSeekbarAudio.setMax(duration);
             Log.d(TAG, String.format("setPlaybackDuration: setMax(%d)", duration));
+            if (mDuration != null)
+                mDuration.setText(PlayerUtils.getDurationFormated(duration));
         }
 
         @Override
@@ -259,6 +270,14 @@ public class AudioSenseiPlayerView extends RelativeLayout
             {
                 mPlayButton.setVisibility(VISIBLE);
                 mPauseButton.setVisibility(GONE);
+            }
+            else if (state == State.PLAYING)
+            {
+                mCurentDuration.start();
+            }
+            else if (state == State.PAUSED)
+            {
+                mCurentDuration.stop();
             }
         }
 

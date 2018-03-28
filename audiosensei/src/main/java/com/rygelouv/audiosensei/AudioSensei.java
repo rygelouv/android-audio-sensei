@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class AudioSensei
     //Create placeholder for user's consent to record_audio permission.
     //This will be used in handling callback
     private final int MY_PERMISSIONS_RECORD_AUDIO = 1;
-    private MediaRecorder myAudioRecorder;
+    private MediaRecorder mAudioRecorder;
     private String outputFile;
 
     private AudioRecordInfo mAudioRecordInfo;
@@ -55,17 +56,34 @@ public class AudioSensei
 
     private void startRecording(AudioRecordInfo audioRecordInfo)
     {
-        mAudioRecordInfo = audioRecordInfo;
-        outputFile = mAudioRecordInfo.getProperPath();
+        this.mAudioRecordInfo = audioRecordInfo;
+        this.outputFile = mAudioRecordInfo.getProperPath();
         requestAudioPermissions(mAudioRecordInfo.activity);
     }
 
     public void stopRecording()
     {
-        myAudioRecorder.stop();
-        myAudioRecorder.release();
-        myAudioRecorder = null;
-        mAudioRecordInfo = null;
+        if (this.mAudioRecorder != null)
+        {
+            this.mAudioRecorder.stop();
+            this.mAudioRecorder.release();
+            this.mAudioRecorder = null;
+            this.mAudioRecordInfo = null;
+        }
+    }
+
+    public void cancelRecording()
+    {
+        stopRecording();
+        try {
+            if (RecorderUtils.deleteLastFile(new File(getLastRecordedOutputFile())))
+                Log.i(TAG, "File deleted");
+            else
+                Log.e(TAG, "File cannot be deleted");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void requestAudioPermissions(Activity activity)
@@ -123,15 +141,15 @@ public class AudioSensei
 
     private void recordAudio()
     {
-        myAudioRecorder = new MediaRecorder();
-        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myAudioRecorder.setOutputFile(outputFile);
+        this.mAudioRecorder = new MediaRecorder();
+        this.mAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        this.mAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        this.mAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        this.mAudioRecorder.setOutputFile(outputFile);
 
         try {
-            myAudioRecorder.prepare();
-            myAudioRecorder.start();
+            this.mAudioRecorder.prepare();
+            this.mAudioRecorder.start();
         } catch (IllegalStateException ise) {
             ise.printStackTrace();
         } catch (IOException ioe) {
@@ -142,8 +160,8 @@ public class AudioSensei
 
     public String getLastRecordedOutputFile()
     {
-        Log.e(TAG, outputFile);
-        return outputFile;
+        Log.e(TAG, !TextUtils.isEmpty(this.outputFile) ? this.outputFile : "Empty output file");
+        return this.outputFile;
     }
 
     public static Recorder Recorder()
@@ -160,28 +178,28 @@ public class AudioSensei
         }
 
         public Recorder with(Activity activity){
-            audioRecordInfo.activity = activity;
+            this.audioRecordInfo.activity = activity;
             return this;
         }
 
         public Recorder name(String name){
-            audioRecordInfo.name = name;
+            this.audioRecordInfo.name = name;
             return this;
         }
 
         public Recorder to(@AudioRecordInfo.AudioPath int audioPath){
-            audioRecordInfo.path = audioPath;
+            this.audioRecordInfo.path = audioPath;
             return this;
         }
 
         public void start()
         {
-            if (audioRecordInfo.activity == null)
+            if (this.audioRecordInfo.activity == null)
                 throw new ActivityRecorderNotProvidedException();
-            if (TextUtils.isEmpty(audioRecordInfo.name))
-                audioRecordInfo.name = UUID.randomUUID().toString();
-            if (audioRecordInfo.path == 0)
-                audioRecordInfo.path = AudioRecordInfo.AudioPath.PHONE_PUBLIC_MUSIC;
+            if (TextUtils.isEmpty(this.audioRecordInfo.name))
+                this.audioRecordInfo.name = UUID.randomUUID().toString();
+            if (this.audioRecordInfo.path == 0)
+                this.audioRecordInfo.path = AudioRecordInfo.AudioPath.PHONE_PUBLIC_MUSIC;
 
             getInstance().startRecording(this.audioRecordInfo);
         }

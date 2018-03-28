@@ -36,7 +36,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.6-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.7-beta'
 }
 ```
 
@@ -69,9 +69,10 @@ override the method `onRequestPermissionsResult` and tell `AudioSensei` to do th
     }
 ```
 
-## Stop recording
+## Stop or cancle recording
 ```java
 AudioSensei.getInstance().stopRecording();
+AudioSensei.getInstance().cancelRecording(); // when the recorder is stopped, AudioSensei does not recorder any file
 ```
 
 ## Get the last recorded file
@@ -110,7 +111,7 @@ or local sound file (on the phone). To set a target you just need to call one of
 of the method `setAudioTarget`
 
 ```java
-setAudioTarget(String url) // If you want to play remote file in streaming mode
+setAudioTarget(String url) // If you want to play remote file in streaming mode. Can also be used for local files
 ```
 ```java
 setAudioTarget(int resource) // If you want to play resource in your android project or APK
@@ -179,11 +180,9 @@ View playerRootView = audioSenseiPlayerView1.getPlayerRootView();
 # TODO
 
 This is library is still in active development. So you may encounter some bugs please create issues.
-This what remains :
+This is what remains :
 -  Handle Audio Focus
 -  Fix some bugs
--  Customize the look and feel of the `AudioSenseiPlayerView`
--  Give the ability to provide a custom layout file for audioSenseiPlayerView
 -  Allow to play audio in a background Service to keep playing 
 even when the user leave the app or the current page and provide controls in a notification
 
