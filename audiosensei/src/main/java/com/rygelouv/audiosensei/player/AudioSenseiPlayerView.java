@@ -224,7 +224,8 @@ public class AudioSenseiPlayerView extends RelativeLayout
     {
         mPlayButton.setVisibility(VISIBLE);
         mPauseButton.setVisibility(GONE);
-        mCurentDuration.reset();
+        if (mCurentDuration != null)
+            mCurentDuration.reset();
     }
 
     public void stop()
@@ -233,7 +234,8 @@ public class AudioSenseiPlayerView extends RelativeLayout
         {
             mPlayerAdapter.reset(false);
             mPlayerAdapter.release();
-            mCurentDuration.reset();
+            if (mCurentDuration != null)
+                mCurentDuration.reset();
         }
     }
 
@@ -270,14 +272,18 @@ public class AudioSenseiPlayerView extends RelativeLayout
             {
                 mPlayButton.setVisibility(VISIBLE);
                 mPauseButton.setVisibility(GONE);
+                if (mCurentDuration != null)
+                    mCurentDuration.reset();
             }
             else if (state == State.PLAYING)
             {
-                mCurentDuration.start();
+                if (mCurentDuration != null)
+                    mCurentDuration.start();
             }
             else if (state == State.PAUSED)
             {
-                mCurentDuration.stop();
+                if (mCurentDuration != null)
+                    mCurentDuration.stop();
             }
         }
 

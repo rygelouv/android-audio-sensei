@@ -177,6 +177,13 @@ If you want to manipulate the views inside the player yourselft you can get it's
 View playerRootView = audioSenseiPlayerView1.getPlayerRootView();
 ```
 
+# Proguard
+If you are using proguard, you need to add this line in your proguard-rules.pro file
+
+```
+-dontwarn com.rygelouv.audiosensei.**
+```
+
 # TODO
 
 This is library is still in active development. So you may encounter some bugs please create issues.
