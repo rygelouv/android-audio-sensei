@@ -1,4 +1,4 @@
-package com.rygelouv.audiosensei;
+package com.rygelouv.audiosensei.recorder;
 
 /**
  * Created by rygelouv on 3/12/18.
@@ -15,22 +15,9 @@ package com.rygelouv.audiosensei;
  * limitations under the License.
  */
 
-public class ActivityRecorderNotProvidedException extends RuntimeException
+class ActivityRecorderNotProvidedException extends RuntimeException
 {
-    public ActivityRecorderNotProvidedException()
-    {
+    ActivityRecorderNotProvidedException() {
         super("Activity not provided. Set activity on Recorder using with() method");
-    }
-
-    public ActivityRecorderNotProvidedException(String message) {
-        throw new RuntimeException("Stub!");
-    }
-
-    public ActivityRecorderNotProvidedException(String message, Throwable cause) {
-        throw new RuntimeException("Stub!");
-    }
-
-    public ActivityRecorderNotProvidedException(Throwable cause) {
-        throw new RuntimeException("Stub!");
     }
 }

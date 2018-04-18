@@ -1,4 +1,4 @@
-package com.rygelouv.audiosensei;
+package com.rygelouv.audiosensei.recorder;
 
 import android.Manifest;
 import android.app.Activity;

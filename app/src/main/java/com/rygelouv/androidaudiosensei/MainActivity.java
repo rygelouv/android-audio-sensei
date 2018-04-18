@@ -1,16 +1,14 @@
 package com.rygelouv.androidaudiosensei;
 
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.rygelouv.audiosensei.AudioRecordInfo;
-import com.rygelouv.audiosensei.AudioSensei;
+import com.rygelouv.audiosensei.recorder.AudioRecordInfo;
+import com.rygelouv.audiosensei.recorder.AudioSensei;
 
 import java.util.UUID;
 

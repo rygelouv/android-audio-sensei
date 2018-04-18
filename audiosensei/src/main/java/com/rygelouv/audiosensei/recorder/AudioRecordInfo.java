@@ -1,4 +1,4 @@
-package com.rygelouv.audiosensei;
+package com.rygelouv.audiosensei.recorder;
 
 import android.app.Activity;
 import android.os.Environment;
@@ -10,9 +10,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import static android.os.Environment.DIRECTORY_MUSIC;
-import static com.rygelouv.audiosensei.AudioRecordInfo.AudioPath.APP_PRIVATE_AUDIO;
-import static com.rygelouv.audiosensei.AudioRecordInfo.AudioPath.APP_PUBLIC_MUSIC;
-import static com.rygelouv.audiosensei.AudioRecordInfo.AudioPath.PHONE_PUBLIC_MUSIC;
+import static com.rygelouv.audiosensei.recorder.AudioRecordInfo.AudioPath.APP_PRIVATE_AUDIO;
+import static com.rygelouv.audiosensei.recorder.AudioRecordInfo.AudioPath.APP_PUBLIC_MUSIC;
+import static com.rygelouv.audiosensei.recorder.AudioRecordInfo.AudioPath.PHONE_PUBLIC_MUSIC;
 
 /**
  Created by rygelouv on 3/6/18.

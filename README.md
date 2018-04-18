@@ -36,7 +36,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.0.8-beta'
+    compile 'com.github.Rygelouv:android-audio-sensei:v0.1.0-beta'
 }
 ```
 
@@ -63,16 +63,16 @@ To make sure the AudioSensei will start recording after the permission is grante
 override the method `onRequestPermissionsResult` and tell `AudioSensei` to do the rest
 
 ```java
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        AudioSensei.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+@Override
+public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+    AudioSensei.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
+}
 ```
 
-## Stop or cancle recording
+## Stop or cancel recording
 ```java
-AudioSensei.getInstance().stopRecording();
-AudioSensei.getInstance().cancelRecording(); // when the recorder is stopped, AudioSensei does not recorder any file
+AudioSensei.getInstance().stopRecording(); // Call this when you are done recording
+AudioSensei.getInstance().cancelRecording(); // when the recorder is stopped, AudioSensei does not record any file
 ```
 
 ## Get the last recorded file
@@ -150,15 +150,15 @@ that custom layout of yours. So to do that, you need to register click listener 
 by specifying the view that you want to handle the click and the callback using `OnPlayerViewClickListener`like this:
 
 ```java
-    audioSenseiPlayerView1.registerViewClickListener(R.id.stop, new OnPlayerViewClickListener()
+audioSenseiPlayerView1.registerViewClickListener(R.id.stop, new OnPlayerViewClickListener()
+        {
+            @Override
+            public void onPlayerViewClick(View view)
             {
-                @Override
-                public void onPlayerViewClick(View view)
-                {
-                    Log.i(TAG, "onPlayer view Clicked");
-                    audioSenseiPlayerView1.stop();
-                }
-            });
+                Log.i(TAG, "onPlayer view Clicked");
+                audioSenseiPlayerView1.stop();
+            }
+        });
 ```
 Here, we registered a click for a stop custom actions that we added in the custom layout
 as the stop button is not provided by default in `AudioSenseiPlayerView`
@@ -168,7 +168,7 @@ events won't be triggered.
  
 
 ```java
-    audioSenseiPlayerView1.commitClickEvents();
+audioSenseiPlayerView1.commitClickEvents();
 ```
 ## Get the player rootView
 
