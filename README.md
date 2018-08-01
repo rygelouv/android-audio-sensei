@@ -127,7 +127,7 @@ You just set a target and you're done!
 If you are using AudioSenseiPlayerView in recyclerview, you must tell AudioSensei to track down the lifecycle by adding this code:
 ```java
 AudioSenseiListObserver.getInstance().registerLifecycle(getLifecycle());
-```java
+```
 
 
 ## Add custom layout
