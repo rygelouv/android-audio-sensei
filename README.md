@@ -122,6 +122,13 @@ setAudioTarget(Uri uri) // If you want to play a local file on the user disk sto
 
 You just set a target and you're done!
 
+## Using with recyclerView
+
+If you are using AudioSenseiPlayerView in recyclerview, you must tell AudioSensei to track down the lifecycle by adding this code:
+```java
+AudioSenseiListObserver.getInstance().registerLifecycle(getLifecycle());
+```java
+
 
 ## Add custom layout
 
