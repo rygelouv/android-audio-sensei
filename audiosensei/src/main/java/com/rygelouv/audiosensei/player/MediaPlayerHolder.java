@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  * Exposes the functionality of the {@link MediaPlayer} and implements the {@link PlayerAdapter}
  * so that {@link AudioSenseiPlayerView} can control music playback.
  */
-public final class MediaPlayerHolder implements PlayerAdapter
+public final class MediaPlayerHolder implements PlayerAdapter, MediaActionHandler
 {
 
     public static final int PLAYBACK_POSITION_REFRESH_INTERVAL_MS = 1000;
@@ -46,8 +46,10 @@ public final class MediaPlayerHolder implements PlayerAdapter
 
     public static synchronized MediaPlayerHolder getInstance(Context context)
     {
-        if (mInstance == null)
+        if (mInstance == null) {
             mInstance = new MediaPlayerHolder(context);
+            AudioSenseiListObserver.getInstance().registerActionHandler(mInstance);
+        }
 
         return mInstance;
     }
@@ -314,4 +316,10 @@ public final class MediaPlayerHolder implements PlayerAdapter
         }
     }
 
+    @Override
+    public void onAction()
+    {
+        reset(false);
+        release();
+    }
 }

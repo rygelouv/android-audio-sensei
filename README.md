@@ -36,7 +36,7 @@ and in the app or module build.gradle:
 
 ```gradle
 dependencies {
-    compile 'com.github.Rygelouv:android-audio-sensei:v0.1.0-beta'
+    compile 'com.github.rygelouv:android-audio-sensei:0.1.1'
 }
 ```
 

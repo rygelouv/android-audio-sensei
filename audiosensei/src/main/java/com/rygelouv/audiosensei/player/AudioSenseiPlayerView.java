@@ -302,10 +302,5 @@ public class AudioSenseiPlayerView extends RelativeLayout
     {
         super.onDetachedFromWindow();
         Log.i(TAG,"on Detached Window called ==> detache AuioPlayer");
-        if (mPlayerAdapter != null)
-        {
-            mPlayerAdapter.reset(false);
-            mPlayerAdapter.release();
-        }
     }
 }

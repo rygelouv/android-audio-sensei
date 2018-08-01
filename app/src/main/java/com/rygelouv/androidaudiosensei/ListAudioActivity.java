@@ -5,12 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rygelouv.audiosensei.player.AudioSenseiListObserver;
 import com.rygelouv.audiosensei.player.AudioSenseiPlayerView;
 
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ public class ListAudioActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_audio);
         setTitle("Audio List in RecyclerView");
+        AudioSenseiListObserver.getInstance().registerLifecycle(getLifecycle());
         loadAudio();
         recyclerView = findViewById(R.id.audio_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -53,6 +54,14 @@ public class ListAudioActivity extends AppCompatActivity
     {
         //audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "https://firebasestorage.googleapis.com/v0/b/makeba-money.appspot.com/o/francisco-tarrega-lagrima.mp3?alt=media&token=0044d0b7-af7c-4919-b126-30032319fa23"));
         //audioArrayList.add(new MyAudio("Big Applause", "https://firebasestorage.googleapis.com/v0/b/makeba-money.appspot.com/o/SampleAudio_0.4mb.mp3?alt=media&token=bdc529df-a407-4353-bf63-9089d5224d16"));
+        audioArrayList.add(new MyAudio("Big Applause", "/storage/emulated/0/Download/SampleAudio_0.4mb.mp3"));
+        audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "storage/emulated/0/Download/francisco-tarrega-lagrima.mp3"));
+        audioArrayList.add(new MyAudio("Big Applause", "/storage/emulated/0/Download/SampleAudio_0.4mb.mp3"));
+        audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "storage/emulated/0/Download/francisco-tarrega-lagrima.mp3"));
+        audioArrayList.add(new MyAudio("Big Applause", "/storage/emulated/0/Download/SampleAudio_0.4mb.mp3"));
+        audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "storage/emulated/0/Download/francisco-tarrega-lagrima.mp3"));
+        audioArrayList.add(new MyAudio("Big Applause", "/storage/emulated/0/Download/SampleAudio_0.4mb.mp3"));
+        audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "storage/emulated/0/Download/francisco-tarrega-lagrima.mp3"));
         audioArrayList.add(new MyAudio("Big Applause", "/storage/emulated/0/Download/SampleAudio_0.4mb.mp3"));
         audioArrayList.add(new MyAudio("Francisco Tarrega Lagrima", "storage/emulated/0/Download/francisco-tarrega-lagrima.mp3"));
     }
