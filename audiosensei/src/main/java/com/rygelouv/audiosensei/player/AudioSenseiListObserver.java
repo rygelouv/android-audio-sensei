@@ -9,13 +9,25 @@ import android.util.Log;
  * Created by rygelouv on 8/1/18.
  * <p>
  * AndroidAudioSensei
- * Copyright (c) 2018 Makeba Inc All rights reserved.
+ *
+ * Copyright 2017 Rygelouv.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 public class AudioSenseiListObserver implements LifecycleObserver
 {
     private static AudioSenseiListObserver mInstance;
     private MediaActionHandler actionHandler;
-    private Lifecycle lifecycle;
 
     public static synchronized AudioSenseiListObserver getInstance() {
         if (mInstance == null) {
@@ -29,13 +41,12 @@ public class AudioSenseiListObserver implements LifecycleObserver
     }
 
     public void registerLifecycle(Lifecycle lifecycle) {
-        this.lifecycle = lifecycle;
         lifecycle.addObserver(this);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void start() {
-        Log.e("TAG", "================================>>>> lifecyle STARTED");
+        Log.e("TAG", "================================>>>> lifecycle STARTED");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
