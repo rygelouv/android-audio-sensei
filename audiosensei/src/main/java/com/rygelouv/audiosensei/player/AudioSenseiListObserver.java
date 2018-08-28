@@ -51,7 +51,6 @@ public class AudioSenseiListObserver implements LifecycleObserver
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     void stop() {
-        Log.e("TAG", "================================>>>> lifecycle STOPED");
         if (this.actionHandler != null) {
             this.actionHandler.onAction();
         }
