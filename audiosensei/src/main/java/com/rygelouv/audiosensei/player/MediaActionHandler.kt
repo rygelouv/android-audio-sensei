@@ -1,6 +1,5 @@
 package com.rygelouv.audiosensei.player
 
-import com.rygelouv.audiosensei.AudioPlayerLifecycleObserver
 
 /**
  * Created by rygelouv on 8/1/18.
